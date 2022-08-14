@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 from utils import (
     write_surface_to_clipboard, save_surface, save_surface_as, crop_surface, bbox_xy_to_xywh, get_screenshot_image
@@ -7,11 +8,17 @@ from controls import Controls, KEY_C, KEY_S, KEY_CTRL, KEY_SHIFT, KEY_ESCAPE
 import pygame
 
 
+os.environ['SDL_VIDEO_WINDOW_POS'] = '%i,%i' % (0, 0)
+os.environ['SDL_VIDEO_CENTERED'] = '0'
+
 BASE_DIR = Path(__file__).resolve().parent
 pygame.display.set_caption("GrabSCR")
 pygame.display.set_icon(pygame.image.load(BASE_DIR / "icon.png"))
 img, size = get_screenshot_image()
-display = pygame.display.set_mode(size, flags=pygame.NOFRAME | pygame.FULLSCREEN, display=1)
+display = pygame.display.set_mode(
+    size,
+    flags=pygame.SCALED | pygame.NOFRAME
+)
 display.blit(img, (0, 0))
 pygame.display.flip()
 
@@ -49,6 +56,11 @@ class AppControls(Controls):
 
     def handle_lmb_down(self, pos):
         self.bbox = [pos, pos]
+
+    def handle_lmb_up(self):
+        (x, y), (w, h) = bbox_xy_to_xywh(self.bbox)
+        if w <= 0 or h <= 0:
+            self.bbox = None
 
     def handle_rmb_down(self, pos):
         if not self.lmb_presed:

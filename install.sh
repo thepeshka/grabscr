@@ -3,9 +3,9 @@
 set -e
 
 INSTALL_PATH="$HOME/.local/share/GrabSCR"
-VERSION="0.0.4"
+VERSION="0.0.5"
 
-mkdir -p $INSTALL_PATH
+mkdir -p "$INSTALL_PATH"
 
 cd "$HOME/.local/share"
 
