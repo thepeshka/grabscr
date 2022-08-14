@@ -6,7 +6,7 @@ import pygame
 
 
 pygame.display.set_caption("GrabSCR")
-pygame.display.set_icon(pygame.image.load("icon.jpg"))
+pygame.display.set_icon(pygame.image.load("icon.png"))
 img, size = get_screenshot_image()
 display = pygame.display.set_mode(size, flags=pygame.NOFRAME | pygame.FULLSCREEN, display=1)
 display.blit(img, (0, 0))

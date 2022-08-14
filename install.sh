@@ -3,7 +3,7 @@
 set -e
 
 INSTALL_PATH="$HOME/.local/share/GrabSCR"
-VERSION="0.0.1"
+VERSION="0.0.2"
 
 mkdir -p $INSTALL_PATH
 
@@ -19,4 +19,4 @@ cp "$INSTALL_PATH/grabscr.desktop" ~/.local/share/applications/grabscr.desktop
 cp "$INSTALL_PATH/icon.png" ~/.icons/grabscr.png
 
 echo "GrabSCR successfully installed! Now you can use Application entry or grabscr command"
-echo "Use $INSTALL_PATH/uninstal.zip to uninstall"
+echo "Use $INSTALL_PATH/uninstall.sh to uninstall"
