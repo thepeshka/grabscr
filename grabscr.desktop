@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GrabSCR
+Icon=grabscr.png
+Comment=Save images of your screen
+Exec=grabscr %u
+Version=1.0
+Type=Application
+Categories=Utility;
+Terminal=false
