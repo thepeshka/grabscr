@@ -2,7 +2,8 @@
 
 INSTALL_PATH="$HOME/.local/share/GrabSCR"
 
-rm -f /usr/local/bin/grabscr
+echo "Installer will ask you to enter password to remove symbolic link"
+sudo rm -f /usr/local/bin/grabscr
 rm -f ~/.local/share/applications/grabscr.desktop
 rm -f ~/.icons/grabscr.png
 
