@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from utils import (
     write_surface_to_clipboard, save_surface, save_surface_as, crop_surface, bbox_xy_to_xywh, get_screenshot_image
 )
@@ -5,8 +7,9 @@ from controls import Controls, KEY_C, KEY_S, KEY_CTRL, KEY_SHIFT, KEY_ESCAPE
 import pygame
 
 
+BASE_DIR = Path(__file__).resolve().parent
 pygame.display.set_caption("GrabSCR")
-pygame.display.set_icon(pygame.image.load("icon.png"))
+pygame.display.set_icon(pygame.image.load(BASE_DIR / "icon.png"))
 img, size = get_screenshot_image()
 display = pygame.display.set_mode(size, flags=pygame.NOFRAME | pygame.FULLSCREEN, display=1)
 display.blit(img, (0, 0))
