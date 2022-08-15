@@ -3,7 +3,7 @@
 set -e
 
 INSTALL_PATH="$HOME/.local/share/GrabSCR"
-VERSION="0.0.6"
+VERSION="0.0.7"
 
 mkdir -p "$INSTALL_PATH"
 

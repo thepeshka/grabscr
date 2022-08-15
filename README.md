@@ -3,9 +3,9 @@
 wget -qO- https://grabscr.thepeshka.ru/install | bash
 ```
 
-https://grabscr.thepeshka.ru/install redreicts to https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.6/install.sh so you can use:
+https://grabscr.thepeshka.ru/install redreicts to https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.7/install.sh so you can use:
 ```shell
-wget -qO- https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.6/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.7/install.sh | bash
 ```
 
 # Supported systems:

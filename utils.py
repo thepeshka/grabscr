@@ -39,6 +39,7 @@ def save_surface(surface: pygame.Surface, file=None):
 def save_surface_as(surface: pygame.Surface):
     top = tkinter.Tk()
     top.withdraw()
+    tkinter.filedialog.SaveAs()
     file_name = tkinter.filedialog.asksaveasfilename(
         parent=top,
         defaultextension='.png',
@@ -63,7 +64,15 @@ def crop_surface(surface: pygame.Surface, bbox):
 
 
 def bbox_xy_to_xywh(bbox):
-    return bbox[0], [bbox[1][0] - bbox[0][0], bbox[1][1] - bbox[0][1]]
+    if bbox[0][0] > bbox[1][0]:
+        x_min, x_max = bbox[1][0], bbox[0][0]
+    else:
+        x_min, x_max = bbox[0][0], bbox[1][0]
+    if bbox[0][1] > bbox[1][1]:
+        y_min, y_max = bbox[1][1], bbox[0][1]
+    else:
+        y_min, y_max = bbox[0][1], bbox[1][1]
+    return (x_min, y_min), (x_max - x_min, y_max - y_min)
 
 
 def get_screenshot_image():
@@ -72,6 +81,6 @@ def get_screenshot_image():
 
         return pygame.image.frombuffer(
             screenshot.rgb,
-            (screenshot.size),
+            screenshot.size,
             "RGB"
         ), screenshot.size

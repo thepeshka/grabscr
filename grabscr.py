@@ -8,19 +8,39 @@ from controls import Controls, KEY_C, KEY_S, KEY_CTRL, KEY_SHIFT, KEY_ESCAPE
 import pygame
 
 
+def draw_full():
+    display.blit(img, (0, 0))
+    pygame.display.flip()
+
+
+def draw_region(bbox):
+    display.blit(img_tinted, (0, 0))
+    box = bbox_xy_to_xywh(bbox)
+    display.blit(crop_surface(img, box), box[0])
+    pygame.display.flip()
+
+
 os.environ['SDL_VIDEO_WINDOW_POS'] = '%i,%i' % (0, 0)
 os.environ['SDL_VIDEO_CENTERED'] = '0'
 
 BASE_DIR = Path(__file__).resolve().parent
+
+pygame.init()
+
+pygame.mouse.set_cursor(*pygame.cursors.Cursor(pygame.SYSTEM_CURSOR_CROSSHAIR))
+
 pygame.display.set_caption("GrabSCR")
 pygame.display.set_icon(pygame.image.load(BASE_DIR / "icon.png"))
+
 img, size = get_screenshot_image()
-display = pygame.display.set_mode(
-    size,
-    flags=pygame.SCALED | pygame.NOFRAME
-)
-display.blit(img, (0, 0))
-pygame.display.flip()
+
+tint = pygame.Surface(size, pygame.SRCALPHA)
+tint.fill((0, 0, 0, 100))
+img_tinted = img.copy()
+img_tinted.blit(tint, (0, 0))
+
+display = pygame.display.set_mode(size, flags=pygame.SCALED | pygame.NOFRAME)
+draw_full()
 
 
 class AppControls(Controls):
@@ -57,23 +77,15 @@ class AppControls(Controls):
     def handle_lmb_down(self, pos):
         self.bbox = [pos, pos]
 
-    def handle_lmb_up(self):
-        (x, y), (w, h) = bbox_xy_to_xywh(self.bbox)
-        if w <= 0 or h <= 0:
-            self.bbox = None
-
     def handle_rmb_down(self, pos):
         if not self.lmb_presed:
             self.bbox = None
-            display.blit(img, (0, 0))
-            pygame.display.flip()
+            draw_full()
 
     def handle_mouse_moved(self, pos):
         if self.bbox and self.lmb_presed:
             self.bbox[1] = pos
-            display.blit(img, (0, 0))
-            pygame.draw.rect(display, (0, 0, 0), bbox_xy_to_xywh(self.bbox), 3)
-            pygame.display.flip()
+            draw_region(self.bbox)
 
 
 controls = AppControls()
