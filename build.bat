@@ -1,0 +1,1 @@
+pyinstaller --add-data 'icon.png;.' --icon=icon.ico -n GrabSCR -y grabscr.py

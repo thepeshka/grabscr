@@ -1,14 +1,17 @@
-# Installation
+# Installation linux
 ```shell
 wget -qO- https://grabscr.thepeshka.ru/install | bash
 ```
 
-https://grabscr.thepeshka.ru/install redreicts to https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.5/install.sh so you can use:
+https://grabscr.thepeshka.ru/install redreicts to https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.6/install.sh so you can use:
 ```shell
-wget -qO- https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.5/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.6/install.sh | bash
 ```
 
-## X11 (Ubuntu, Debian) only
+# Supported systems:
+ - Windows
+ - Linux (X11, Wayland (not tested))
+ - MacOS (sources only, not tested)
 
 # Usage:
  - Start app

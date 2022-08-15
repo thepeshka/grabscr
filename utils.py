@@ -5,11 +5,12 @@ from datetime import datetime
 from io import BytesIO
 from pathlib import Path
 
-from Xlib import X
-from Xlib.display import Display
 import numpy as np
 import pygame_hide_prompt
 import pygame
+from mss import mss
+
+import clipboard
 
 
 def bgra2rgb(rgba):
@@ -24,12 +25,8 @@ def bgra2rgb(rgba):
 
 def write_surface_to_clipboard(surface: pygame.Surface):
     buffer = BytesIO()
-    pygame.image.save(surface, buffer, ".png")
-    cmd = subprocess.Popen(
-        ["xclip", "-sel", "clip", "-t", "image/png"],
-        stdin=subprocess.PIPE
-    )
-    cmd.stdin.write(buffer.getvalue())
+    pygame.image.save(surface, buffer, "." + clipboard.CLIPBOARD_TYPE)
+    clipboard.copy(buffer.getvalue())
 
 
 def save_surface(surface: pygame.Surface, file=None):
@@ -70,16 +67,11 @@ def bbox_xy_to_xywh(bbox):
 
 
 def get_screenshot_image():
-    xdisplay = Display().screen().root
-    geometry = xdisplay.get_geometry()
-    width, height = geometry.width, geometry.height
-    return pygame.image.frombuffer(
-        bgra2rgb(
-            np.frombuffer(
-                xdisplay.get_image(0, 0, width, height, X.ZPixmap, 0xffffffff).data,
-                np.uint8
-            )
-        ),
-        (width, height),
-        "RGB"
-    ), (width, height)
+    with mss() as sct:
+        screenshot = sct.grab(sct.monitors[0])
+
+        return pygame.image.frombuffer(
+            screenshot.rgb,
+            (screenshot.size),
+            "RGB"
+        ), screenshot.size
