@@ -19,3 +19,4 @@ wget -qO- https://raw.githubusercontent.com/thepeshka/grabscr/v0.0.7/install.sh 
  - CTRL+S save into Pictures folder
  - CTRL+SHIFT+S choose folder to save to
  - CTRL+C copy to clipboard
+ - ESC to exit
