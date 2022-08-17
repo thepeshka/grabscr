@@ -1,5 +1,4 @@
-numpy==1.21.3
+numpy==1.19.5
 pygame==2.0.2
 mss==6.1.0
-pasteboard==0.3.3
-pywin32==304
+pyinstaller==4.10

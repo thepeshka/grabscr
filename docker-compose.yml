@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  buildappimage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./GrabSCR.AppDir:/appdir:ro
+      - ./src:/src:ro
+      - ./dist:/dist
