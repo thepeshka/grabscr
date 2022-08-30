@@ -8,14 +8,11 @@ script:
   # Make usr and icons dirs
   - mkdir -p AppDir/usr/src
   - mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
-  # Copy the python application code into the AppDir
-  - cp grabscr AppDir/usr/src -r
-  - cp grabscr/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/grabscr.png
-  # Install application dependencies
-  - pip3 install --ignore-installed --prefix=/usr --root=AppDir -r ./requirements.txt
+  - cp /build/dist/GrabSCR AppDir/usr/src -r
+  - cp /build/grabscr/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/grabscr.png
 
 AppDir:
-  path: ./AppDir
+  path: /build/AppDir
 
   app_info:
     id: ru.thepeshka.grabscr
@@ -23,37 +20,15 @@ AppDir:
     icon: grabscr
     version: 0.0.7
     # Set the python executable as entry point
-    exec: usr/bin/python3
+    exec: usr/src/GrabSCR/GrabSCR
     # Set the application main script path as argument. Use '$@' to forward CLI parameters
-    exec_args: "$APPDIR/usr/src/grabscr/main.py $@"
+    exec_args: "$@"
 
   files:
     exclude: [
       "usr/src/grabscr/clipboard/mac.py",
       "usr/src/grabscr/clipboard/windows.py",
     ]
-
-  apt:
-    arch: amd64
-    sources:
-      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse'
-        key_url: 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C'
-
-    include:
-      - python3
-      - python3-tk
-
-    exclude: []
-
-  runtime:
-    env:
-      PATH: '${APPDIR}/usr/bin:${PATH}'
-      # Set python home
-      # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONHOME
-      PYTHONHOME: '${APPDIR}/usr'
-      # Path to the site-packages dir or other modules dirs
-      # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
-      PYTHONPATH: '${APPDIR}/usr/src/grabscr:${APPDIR}/usr/lib/python3.8:${APPDIR}/usr/lib/python3.8/lib-dynload:${APPDIR}/usr/lib/python3.8/site-packages'
 
 AppImage:
   update-information: 'gh-releases-zsync|thepeshka|grabscr|latest|GrabSCR-*x86_64.AppImage.zsync'
